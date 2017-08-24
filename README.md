@@ -1,6 +1,8 @@
 # App Engine Standard Python logging deadlock
 
-Python applications running on App Engine Standard can run into a deadlock between the logging handler lock and the Python module import lock. For some reason, App Engine Standard's protocol buffer library holds the Python module import lock while calculating message sizes, causing a deadlock when one thread tries to flush the logs while another thread is importing modules. We've worked around this by monkey-patching the App Engine logging code to drop log messages when the deadlock might occur. We would love to have Google fix this bug so we don't have to do this.
+Python applications running on App Engine Standard can run into a deadlock between the logging handler lock and the Python module import lock. For some reason, App Engine Standard's protocol buffer library holds the Python module import lock while calculating message sizes, causing a deadlock when one thread tries to flush the logs while another thread is importing modules. We've worked around this by monkey-patching the App Engine logging code to drop log messages when the deadlock might occur. We would love to have Google fix this bug so we don't have to do this. [This has been reported on the public issue tracker](https://issuetracker.google.com/issues/65016348).
+
+
 
 The following sequence of events causes the deadlock:
 
