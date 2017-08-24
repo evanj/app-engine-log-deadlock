@@ -1,0 +1,10 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+service: logdeadlock
+
+handlers:
+- url: /.*
+  secure: always
+  login: admin
+  script: logdeadlock.app
